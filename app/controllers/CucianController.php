@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 use App\Models\Cucian;
+use App\Validation\CucianValidation;
 class CucianController extends ControllerBase
 {
     // passing view
@@ -18,21 +19,38 @@ class CucianController extends ControllerBase
 
     public function prosesAction()
     {
-        $cuci = new Cucian();
+        $validation= new CucianValidation();
+        $messages = $validation->validate($_POST);
+        if (count($messages)) 
+        {
+            foreach ($messages as $message) 
+            {
+                $this->flashSession->error($message->getMessage());
+            }
+            $this->response->redirect('/cucian/tambah');
+        }
+        else 
+        {
+            $cuci = new Cucian();
 
-        $cuci->assign(
-            $this->request->getPost(),
-            [
-                'nama_cucian',
-                'kode_cucian'
-            ]
-        );
-        $cuci->updated_at = date('Y-m-d h:i:sa');
-        $cuci->created_at = date('Y-m-d h:i:sa');
+            $cuci->assign(
+                $this->request->getPost(),
+                [
+                    'nama_cucian',
+                    'kode_cucian'
+                ]
+            );
+            $cuci->updated_at = date('Y-m-d h:i:sa');
+            $cuci->created_at = date('Y-m-d h:i:sa');
 
-        $success = $cuci->save();
-
-        $this->response->redirect('/cucian');        
+            $success = $cuci->save();
+            if($success)
+            {
+                $this->flashSession->error('Data berhasil diinputkan');
+            }
+    
+            $this->response->redirect('/cucian');       
+        } 
     }
     // passing view
     public function editAction($id)
@@ -43,21 +61,37 @@ class CucianController extends ControllerBase
 
     public function updateAction($id)
     {
-       $cuci = Cucian::findFirstById_cucian($id);
+        $validation= new CucianValidation();
+        $messages = $validation->validate($_POST);
+        if (count($messages)) 
+        {
+            foreach ($messages as $message) 
+            {
+                $this->flashSession->error($message->getMessage());
+            }
+            $this->response->redirect('/cucian/edit');
+        }
+        else 
+        {
+            $cuci = Cucian::findFirstById_cucian($id);
 
-        $cuci->assign(
-            $this->request->getPost(),
-            [
-                'nama_cucian',
-                'kode_cucian'
-            ]
-        );
-        $cuci->updated_at = date('Y-m-d h:i:sa');
-        
+            $cuci->assign(
+                $this->request->getPost(),
+                [
+                    'nama_cucian',
+                    'kode_cucian'
+                ]
+            );
+            $cuci->updated_at = date('Y-m-d h:i:sa');
+            
+            $success = $cuci->save();
+            if($success)
+            {
+                $this->flashSession->success('Data berhasil diinputkan');
+            }
 
-        $success = $cuci->save();
-
-        $this->response->redirect('/cucian');
+            $this->response->redirect('/cucian');
+        }
     }
 
     public function hapusAction($id)
@@ -65,6 +99,10 @@ class CucianController extends ControllerBase
         $cuci = Cucian::findFirstById_cucian($id);
 
         $success = $cuci->delete();
+        if($success)
+        {
+            $this->flashSession->error('Data berhasil dihapus');
+        }
 
         $this->response->redirect('/cucian');
     }

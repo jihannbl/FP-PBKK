@@ -26,6 +26,7 @@ return new \Phalcon\Config([
         'pluginsDir'     => APP_PATH . '/plugins/',
         'libraryDir'     => APP_PATH . '/library/',
         'cacheDir'       => APP_PATH . '/cache/',
+        'validationDir'  => APP_PATH . '/validation/',
         'baseUri'        => getenv('BASE_URI') ? : '/',
     ]
 ]);

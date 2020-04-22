@@ -11,6 +11,7 @@ $loader->registerNamespaces([
     'Phalcon\Db' => APP_PATH . '/lib/Phalcon/Db',
     'App\Controllers' => $config->application->controllersDir,
     'App\Models' => $config->application->modelsDir,
+    'App\Validation' => $config->application->validationDir,
 ]);
 
 $loader->register();
