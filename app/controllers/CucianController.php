@@ -5,12 +5,12 @@ namespace App\Controllers;
 use App\Models\Cucian;
 class CucianController extends ControllerBase
 {
-
+    // passing view
     public function indexAction()
     {
         $this->view->cucian = Cucian::find();
     }
-
+    // passing view
     public function tambahAction()
     {
 
@@ -34,7 +34,7 @@ class CucianController extends ControllerBase
 
         $this->response->redirect('/cucian');        
     }
-
+    // passing view
     public function editAction($id)
     {
         $cuci = Cucian::findFirstById_cucian($id);
