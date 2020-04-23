@@ -9,24 +9,24 @@
 
         </div>
         <div class="card-body">
-            <form method="post" action="{{url('/cucian/proses')}}">
-                {{ flashSession.output() }}
+            <form autocomplete="off" method="post" action="{{url('/cucian/proses')}}">
                 <div class="form-group">
                     <label>Nama Cucian</label>
                     <input type="text" name="nama_cucian" autocomplete="off" class="form-control"
-                        placeholder="Nama cucian">
-
+                    placeholder="Nama cucian">
+                    
                 </div>
                 <div class="form-group">
                     <label>Kode Cucian</label>
                     <input type="text" name="kode_cucian" autocomplete="off" class="form-control"
-                        placeholder="Kode Cucian">
+                    placeholder="Kode Cucian">
                 </div>
                 <div class="form-group">
                     <input type="submit" class="btn btn-success" value="Simpan">
                 </div>
-
+                
             </form>
+            {{ flashSession.output() }}
 
         </div>
     </div>

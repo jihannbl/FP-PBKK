@@ -38,6 +38,7 @@
                 </div>
 
             </form>
+            <?= $this->flashSession->output() ?>
 
         </div>
     </div>

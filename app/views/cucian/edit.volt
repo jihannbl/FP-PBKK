@@ -13,19 +13,20 @@
                 <div class="form-group">
                     <label>Nama Cucian</label>
                     <input type="text" name="nama_cucian" class="form-control" placeholder="Nama cucian"
-                        value="{{cucian.nama_cucian}}">
+                    value="{{cucian.nama_cucian}}">
                 </div>
                 <div class="form-group">
                     <label>Kode Cucian</label>
                     <input type="text" name="kode_cucian" class="form-control" placeholder="Kode Cucian"
-                        value="{{cucian.kode_cucian}}">
+                    value="{{cucian.kode_cucian}}">
                 </div>
                 
                 <div class="form-group">
                     <input type="submit" class="btn btn-success" value="Simpan">
                 </div>
-
+                
             </form>
+            {{ flashSession.output() }}
 
         </div>
     </div>

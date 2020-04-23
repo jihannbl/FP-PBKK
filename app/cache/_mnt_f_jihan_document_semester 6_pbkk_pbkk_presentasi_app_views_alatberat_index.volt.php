@@ -16,6 +16,7 @@
             <div class="card-header">
                 <a href="<?= $this->url->get('alatberat/tambah') ?>" class="btn btn-primary btn-sm float-left"><span class="fas fa-plus"
                         style="padding-right: 7px;"></span>Input</a>
+                <?= $this->flashSession->output() ?>
             </div>
             <div class="card-body table-responsive p-0" style="height: 500px;">
                 <table class="table table-bordered table-hover table-striped table-head-fixed">

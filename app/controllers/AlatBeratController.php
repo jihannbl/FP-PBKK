@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 use App\Models\AlatBerat;
+use App\Validation\AlatBeratValidation;
 class AlatBeratController extends ControllerBase
 {
     // passing view
@@ -18,21 +19,38 @@ class AlatBeratController extends ControllerBase
 
     public function prosesAction()
     {
-        $alat = new AlatBerat();
+        $validation= new AlatBeratValidation();
+        $messages = $validation->validate($_POST);
+        if (count($messages)) 
+        {
+            foreach ($messages as $message) 
+            {
+                $this->flashSession->error($message->getMessage());
+            }
+            $this->response->redirect('/alatberat/tambah');
+        }
+        else 
+        {
+            $alat = new AlatBerat();
 
-        $alat->assign(
-            $this->request->getPost(),
-            [
-                'nama_alatBerat',
-                'harga_alatBerat'
-            ]
-        );
-        $alat->updated_at = date('Y-m-d h:i:sa');
-        $alat->created_at = date('Y-m-d h:i:sa');
-
-        $success = $alat->save();
-
-        $this->response->redirect('/alatberat');        
+            $alat->assign(
+                $this->request->getPost(),
+                [
+                    'nama_alatBerat',
+                    'harga_alatBerat'
+                ]
+            );
+            $alat->updated_at = date('Y-m-d h:i:sa');
+            $alat->created_at = date('Y-m-d h:i:sa');
+            
+            $success = $alat->save();
+            if($success)
+            {
+                $this->flashSession->success('Data berhasil diinputkan');
+            }
+            
+            $this->response->redirect('/alatberat');        
+        }
     }
     // passing view
     public function editAction($id)
@@ -43,21 +61,37 @@ class AlatBeratController extends ControllerBase
 
     public function updateAction($id)
     {
-       $alat = AlatBerat::findFirstById_alatBerat($id);
-
-        $alat->assign(
-            $this->request->getPost(),
-            [
-                'nama_alatBerat',
-                'harga_alatBerat'
-            ]
-        );
-        $alat->updated_at = date('Y-m-d h:i:sa');
-        
-
-        $success = $alat->save();
-
-        $this->response->redirect('/alatberat');
+        $validation= new AlatBeratValidation();
+        $messages = $validation->validate($_POST);
+        if (count($messages)) 
+        {
+            foreach ($messages as $message) 
+            {
+                $this->flashSession->error($message->getMessage());
+            }
+            $this->response->redirect('/alatberat/edit/'.join('/',[$id]));
+        }
+        else 
+        {
+            $alat = AlatBerat::findFirstById_alatBerat($id);
+            
+            $alat->assign(
+                $this->request->getPost(),
+                [
+                    'nama_alatBerat',
+                    'harga_alatBerat'
+                ]
+            );
+            $alat->updated_at = date('Y-m-d h:i:sa');
+            
+            $success = $alat->save();
+            if($success)
+            {
+                $this->flashSession->success('Data berhasil diedit');
+            }
+            
+            $this->response->redirect('/alatberat');
+        }
     }
 
     public function hapusAction($id)
@@ -65,6 +99,10 @@ class AlatBeratController extends ControllerBase
         $alat = AlatBerat::findFirstById_alatBerat($id);
 
         $success = $alat->delete();
+        if($success)
+        {
+            $this->flashSession->success('Data berhasil dihapus');
+        }
 
         $this->response->redirect('/alatberat');
     }

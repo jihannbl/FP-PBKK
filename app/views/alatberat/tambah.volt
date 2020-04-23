@@ -9,7 +9,7 @@
 
         </div>
         <div class="card-body">
-            <form method="post" action="{{url('/alatberat/proses')}}">
+            <form autocomplete="off" method="post" action="{{url('/alatberat/proses')}}">
                 <div class="form-group">
                     <label>Nama Alat Berat</label>
                     <input type="text" name="nama_alatBerat" class="form-control" placeholder="Nama Alat Berat">
@@ -23,6 +23,7 @@
                 </div>
 
             </form>
+            {{ flashSession.output() }}
 
         </div>
     </div>

@@ -26,6 +26,7 @@
                 </div>
 
             </form>
+            {{ flashSession.output() }}
 
         </div>
     </div>

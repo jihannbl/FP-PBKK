@@ -46,7 +46,7 @@ class CucianController extends ControllerBase
             $success = $cuci->save();
             if($success)
             {
-                $this->flashSession->error('Data berhasil diinputkan');
+                $this->flashSession->success('Data berhasil diinputkan');
             }
     
             $this->response->redirect('/cucian');       
@@ -69,7 +69,7 @@ class CucianController extends ControllerBase
             {
                 $this->flashSession->error($message->getMessage());
             }
-            $this->response->redirect('/cucian/edit');
+            $this->response->redirect('/cucian/edit/'.join('/',[$id]));
         }
         else 
         {
@@ -87,7 +87,7 @@ class CucianController extends ControllerBase
             $success = $cuci->save();
             if($success)
             {
-                $this->flashSession->success('Data berhasil diinputkan');
+                $this->flashSession->success('Data berhasil diedit');
             }
 
             $this->response->redirect('/cucian');
@@ -101,7 +101,7 @@ class CucianController extends ControllerBase
         $success = $cuci->delete();
         if($success)
         {
-            $this->flashSession->error('Data berhasil dihapus');
+            $this->flashSession->success('Data berhasil dihapus');
         }
 
         $this->response->redirect('/cucian');

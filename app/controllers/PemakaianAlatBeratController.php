@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controllers;
 use App\Models\AlatBerat;
 use App\Models\PemakaianAlatBerat;
+use App\Validation\PemakaianAlatBeratValidation;
 class PemakaianAlatBeratController extends ControllerBase
 {
     // passing view
@@ -19,27 +20,43 @@ class PemakaianAlatBeratController extends ControllerBase
 
     public function prosesAction()
     {
-        $pemakaian = new PemakaianAlatBerat();
-
-        $pemakaian->assign(
-            $this->request->getPost(),
-            [
-                'tanggal_mulai',
-                'tanggal_selesai',
-                'jam_pakai'
-            ]
-        );
-        $nama_alat = $this->request->getPost('nama_alatBerat');
-        $jam = $this->request->getPost('jam_pakai');
-        $alat_berat = AlatBerat::findFirstByNama_alatBerat($nama_alat);
-        $pemakaian->id_alatBerat = $alat_berat->id_alatBerat;
-        $pemakaian->harga_pakai = $jam*$alat_berat->harga_alatBerat;
-        $pemakaian->updated_at = date('Y-m-d h:i:sa');
-        $pemakaian->created_at = date('Y-m-d h:i:sa');
-
-        $success = $pemakaian->save();
-
-        $this->response->redirect('/pemakaianalatberat');        
+        $validation= new PemakaianAlatBeratValidation();
+        $messages = $validation->validate($_POST);
+        if (count($messages)) 
+        {
+            foreach ($messages as $message) 
+            {
+                $this->flashSession->error($message->getMessage());
+            }
+            $this->response->redirect('/pemakaianalatberat/tambah');
+        }
+        else 
+        {
+            $pemakaian = new PemakaianAlatBerat();
+            $pemakaian->assign(
+                $this->request->getPost(),
+                [
+                    'tanggal_mulai',
+                    'tanggal_selesai',
+                    'jam_pakai'
+                    ]
+                );
+            $nama_alat = $this->request->getPost('nama_alatBerat');
+            $jam = $this->request->getPost('jam_pakai');
+            $alat_berat = AlatBerat::findFirstByNama_alatBerat($nama_alat);
+            $pemakaian->id_alatBerat = $alat_berat->id_alatBerat;
+            $pemakaian->harga_pakai = $jam*$alat_berat->harga_alatBerat;
+            $pemakaian->updated_at = date('Y-m-d h:i:sa');
+            $pemakaian->created_at = date('Y-m-d h:i:sa');
+            
+            $success = $pemakaian->save();
+            if($success)
+            {
+                $this->flashSession->success('Data berhasil diinputkan');
+            }
+            
+            $this->response->redirect('/pemakaianalatberat');        
+        }
     }
     // passing view
     public function editAction($id)
@@ -57,27 +74,43 @@ class PemakaianAlatBeratController extends ControllerBase
 
     public function updateAction($id)
     {
-       $pemakaian = PemakaianAlatBerat::findFirstById_pemakaian($id);
-
-        $pemakaian->assign(
-            $this->request->getPost(),
-            [
-                'tanggal_mulai',
-                'tanggal_selesai',
-                'jam_pakai'
-            ]
-        );
-        $nama_alat = $this->request->getPost('nama_alatBerat');
-        $jam = $this->request->getPost('jam_pakai');
-        $alat_berat = AlatBerat::findFirstByNama_alatBerat($nama_alat);
-        $pemakaian->id_alatBerat = $alat_berat->id_alatBerat;
-        $pemakaian->harga_pakai = $jam*$alat_berat->harga_alatBerat;
-        $pemakaian->updated_at = date('Y-m-d h:i:sa');
+        $validation= new PemakaianAlatBeratValidation();
+        $messages = $validation->validate($_POST);
+        if (count($messages)) 
+        {
+            foreach ($messages as $message) 
+            {
+                $this->flashSession->error($message->getMessage());
+            }
+            $this->response->redirect('/pemakaianalatberat/edit/'.join('/',[$id]));
+        }
         
+        else
+        {
+            $pemakaian = PemakaianAlatBerat::findFirstById_pemakaian($id);
 
-        $success = $pemakaian->save();
+            $pemakaian->assign(
+                $this->request->getPost(),
+                [
+                    'tanggal_mulai',
+                    'tanggal_selesai',
+                    'jam_pakai'
+                ]
+            );
+            $nama_alat = $this->request->getPost('nama_alatBerat');
+            $jam = $this->request->getPost('jam_pakai');
+            $alat_berat = AlatBerat::findFirstByNama_alatBerat($nama_alat);
+            $pemakaian->id_alatBerat = $alat_berat->id_alatBerat;
+            $pemakaian->harga_pakai = $jam*$alat_berat->harga_alatBerat;
+            $pemakaian->updated_at = date('Y-m-d h:i:sa');
 
-        $this->response->redirect('/pemakaianalatberat');
+            $success = $pemakaian->save();
+            if($success)
+            {
+                $this->flashSession->success('Data berhasil diedit');
+            }
+            $this->response->redirect('/pemakaianalatberat');
+        }
     }
 
     public function hapusAction($id)
@@ -85,7 +118,10 @@ class PemakaianAlatBeratController extends ControllerBase
         $pemakaian = PemakaianAlatBerat::findFirstById_pemakaian($id);
 
         $success = $pemakaian->delete();
-
+        if($success)
+        {
+            $this->flashSession->success('Data berhasil dihapus');
+        }
         $this->response->redirect('/pemakaianalatberat');
     }
 

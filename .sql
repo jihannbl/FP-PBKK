@@ -33,3 +33,4 @@ CREATE TABLE pemakaian_alatberat (
   updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   created_at datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
 )
+
