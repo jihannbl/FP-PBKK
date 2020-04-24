@@ -4,14 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- <title>DCA | Dwi Citra Anugerah</title> -->
+    <title>DCA | Dwi Citra Anugerah</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {{ assets.outputCss() }}
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Google Font: Source Sans Pro -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <style>
         td,
         th {
@@ -65,7 +61,6 @@
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{ url('cucian') }}" class="nav-link">
-                                        <!-- <i class="nav-icon fas fa-truck"></i> -->
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>
                                             Cucian
@@ -74,7 +69,6 @@
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ url('alatberat') }}" class="nav-link">
-                                        <!-- <i class="nav-icon fas fa-user-tie"></i> -->
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>
                                             Alat Berat
@@ -94,10 +88,9 @@
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{ url('pemakaianalatberat') }}" class="nav-link">
-                                        <!-- <i class="nav-icon fas fa-truck"></i> -->
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>
-                                            Pemakaian Alat Berat
+                                            Pemakaian Alat
                                         </p>
                                     </a>
                                 </li>
