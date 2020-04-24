@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controllers;
 use App\Models\Cucian;
 use App\Validation\CucianValidation;
+date_default_timezone_set("Asia/Bangkok");
 class CucianController extends ControllerBase
 {
     // passing view

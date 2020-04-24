@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\AlatBerat;
 use App\Models\PemakaianAlatBerat;
 use App\Validation\PemakaianAlatBeratValidation;
+date_default_timezone_set("Asia/Bangkok");
 class PemakaianAlatBeratController extends ControllerBase
 {
     // passing view

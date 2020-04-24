@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controllers;
 use App\Models\AlatBerat;
 use App\Validation\AlatBeratValidation;
+date_default_timezone_set("Asia/Bangkok");
 class AlatBeratController extends ControllerBase
 {
     // passing view
