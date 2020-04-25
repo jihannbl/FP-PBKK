@@ -83,7 +83,7 @@ class PemakaianAlatBeratController extends ControllerBase
             {
                 $this->flashSession->error($message->getMessage());
             }
-            $this->response->redirect('/pemakaianalatberat/edit/'.join('/',[$id]));
+            $this->response->redirect('/pemakaianalatberat/edit/'.$id);
         }
         
         else

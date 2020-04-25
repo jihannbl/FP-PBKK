@@ -12,7 +12,7 @@
 
 </head>
 
-<!-- <body>
+<body>
     <div class="form-structor">
         <form method="POST" autocomplete="off" action="{{ url('session/login') }}">
             <div class="signup">
@@ -27,4 +27,4 @@
             </div>
         </form>
     </div>
-</body> -->
+</body>

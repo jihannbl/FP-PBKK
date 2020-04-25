@@ -25,20 +25,20 @@
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <!-- Left navbar links -->
-            <!-- <ul class="navbar-nav">
+            <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
                 </li>
-            </ul> -->
+            </ul>
             <!-- Right navbar links -->
-            <!-- <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="{{ url('user') }}" class="nav-link">User</a>
+                    <!-- <a href="{{ url('user') }}" class="nav-link">{{ session.get('auth')['username'] }}</a> -->
                 </li>
                 <li class="nav-item">
                     <a href="{{ url('session/logout') }}" class="nav-link">Logout</a>
                 </li>
-            </ul> -->
+            </ul>
         </nav>
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -111,7 +111,7 @@
         </aside>
         <!-- jQuery -->
         {{ assets.outputJs() }}
-
+    </div>
 </body>
 
 </html>

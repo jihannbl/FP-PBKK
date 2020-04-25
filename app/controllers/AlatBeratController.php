@@ -70,7 +70,7 @@ class AlatBeratController extends ControllerBase
             {
                 $this->flashSession->error($message->getMessage());
             }
-            $this->response->redirect('/alatberat/edit/'.join('/',[$id]));
+            $this->response->redirect('/alatberat/edit/'.$id);
         }
         else 
         {

@@ -70,7 +70,7 @@ class CucianController extends ControllerBase
             {
                 $this->flashSession->error($message->getMessage());
             }
-            $this->response->redirect('/cucian/edit/'.join('/',[$id]));
+            $this->response->redirect('/cucian/edit/'.$id);
         }
         else 
         {

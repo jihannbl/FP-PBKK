@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>DCA | Dwi Citra Anugerah</title>
-    <!-- {{ assets.outputCss() }} -->
-    <!-- {{ this.assets.outputCss('login') }} -->
-    <link rel='stylesheet' href='{{ static_url('css/login.css') }}' type='text/css'>
+    <!-- <?= $this->assets->outputCss() ?> -->
+    <!-- <?= $this->assets->outputCss('login') ?> -->
+    <link rel='stylesheet' href='<?= $this->url->getStatic('css/login.css') ?>' type='text/css'>
 
 </head>
 
 <!-- <body>
     <div class="form-structor">
-        <form method="POST" autocomplete="off" action="{{ url('session/login') }}">
+        <form method="POST" autocomplete="off" action="<?= $this->url->get('session/login') ?>">
             <div class="signup">
                 <h2 class="form-title" id="signup">Log in</h2>
                 <div class="form-holder">
