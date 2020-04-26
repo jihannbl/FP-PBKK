@@ -32,20 +32,24 @@
             </ul>
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <!-- <a href="{{ url('user') }}" class="nav-link">{{ session.get('auth')['username'] }}</a> -->
-                </li>
-                <li class="nav-item">
-                    <a href="{{ url('session/logout') }}" class="nav-link">Logout</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false" href="#">
+                        <i class="fas fa-user"></i>&nbsp;&nbsp;{{ session.get('auth')['username'] }}&nbsp;</a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+                        <a class="dropdown-item" href="{{ url('user') }}">List User</a>
+                        <a class="dropdown-item" href="{{ url('session/logout') }}">Log out</a>
+                    </div>
                 </li>
             </ul>
         </nav>
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <span class="font-weight-bold brand-link" style="color:#343A40; text-align: center; background:#7CB1A6;">DCA
-            </span>
-            <!-- Sidebar -->
+                    <span class="font-weight-bold brand-link" style="color:#343A40; background:#7CB1A6; padding-left: 13px;">
+                        {{ image('img/DCA.png','class': 'brand-image img-circle elevation-3', 'style': 'opacity: .8') }}
+                        <span class="brand-text font-weight-bold" style="padding-left: 15%;">DCA</span>
+                    </span>
             <div class="sidebar">
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"

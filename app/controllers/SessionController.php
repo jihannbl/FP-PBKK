@@ -8,6 +8,11 @@ date_default_timezone_set("Asia/Bangkok");
 class SessionController extends ControllerBase
 {
 
+    public function beforeExecuteRoute() 
+    {
+    
+    }
+    
     public function indexAction()
     {
     }
