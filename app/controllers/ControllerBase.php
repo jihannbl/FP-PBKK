@@ -7,13 +7,6 @@ use Phalcon\Mvc\Controller;
 
 class ControllerBase extends Controller
 {
-    // Implement common logic
-    public function beforeExecuteRoute() {
-        if (!$this->session->has('auth')) {
-            $this->response->redirect('/');
-            return false;
-        }
-    }
     public function onConstruct(){
         $this->assets->addCss("plugins/datatables-bs4/css/dataTables.bootstrap4.css"); 
         $this->assets->addCss("plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css");

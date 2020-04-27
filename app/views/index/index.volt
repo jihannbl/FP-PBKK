@@ -6,12 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>DCA | Dwi Citra Anugerah</title>
-    <link rel="icon" href="img/DCA.png" type="image/png">
     <link rel='stylesheet' href='{{ static_url('css/login.css') }}' type='text/css'>
+    <style>
+        .alert {
+        position: relative;
+        padding: 0.75rem 1.25rem;
+        margin-bottom: 1rem;
+        border: 1px solid transparent;
+        border-radius: 0.25rem;
+        }
+        .alert-danger {
+        color: #ffffff;
+        background: #dc3545;
+        border-color: #d32535;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="text-danger">{{ flashSession.output() }} </div>
+
+        {{ flashSession.output() }}
     <div class="form-structor">
         <form method="POST" autocomplete="off" action="{{ url('session/login') }}">
             <div class="signup">

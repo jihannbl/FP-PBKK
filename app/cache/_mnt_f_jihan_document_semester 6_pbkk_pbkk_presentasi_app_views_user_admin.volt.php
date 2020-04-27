@@ -18,7 +18,7 @@
     </style>
 </head>
 
-<title>Alat Berat</title>
+<title>User Admin</title>
 
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed" style="font-size: 21px;">
@@ -39,7 +39,9 @@
                         aria-expanded="false" href="#">
                         <i class="fas fa-user"></i>&nbsp;&nbsp;<?= $this->session->get('auth')['username'] ?>&nbsp;</a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+                        <?php if ($this->session->get('auth')['tipe'] === 'master') { ?>
                         <a class="dropdown-item" href="<?= $this->url->get('user') ?>">List User</a>
+                        <?php } ?>
                         <a class="dropdown-item" href="<?= $this->url->get('session/logout') ?>">Log out</a>
                     </div>
                 </li>
@@ -56,6 +58,7 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
+                        <?php if ($this->session->get('auth')['tipe'] == 'master') { ?>
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-clipboard"></i>
@@ -83,6 +86,8 @@
                                 </li>
                             </ul>
                         </li>
+                        <?php } else { ?>
+                        <?php } ?>
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-file-alt"></i>
@@ -110,43 +115,7 @@
         </aside>
         <div class="content-wrapper">
             
-    <div class="container">
-        <div class="card">
-            <div class="card-header text-center" style="background-color:#343A40; color: #FFFFFF;">
-                <strong>ALAT BERAT</strong>
-            </div>
-            <?= $this->flashSession->output() ?>
-            <div class="card-header">
-                <a href="<?= $this->url->get('alatberat/tambah') ?>" class="btn btn-primary btn-sm float-left"><span class="fas fa-plus"
-                        style="padding-right: 7px;"></span>Input</a>
-            </div>
-            <div class="card-body table-responsive p-0" style="height: 500px;">
-                <table class="table table-bordered table-hover table-striped table-head-fixed">
-                    <thead>
-                        <tr>
-                            <th>Nama Alat Berat</th>
-                            <th>Harga Alat Berat per Jam</th>
-                            <th>OPSI</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($alat as $a) { ?>
-                        <tr>
-                            <td><?= $a->nama_alatBerat ?></td>
-                            <td><?= $a->harga_alatBerat ?></td>
-                            <td>
-                                <a href="<?= $this->url->get('alatberat/edit/' . $a->id_alatBerat) ?>" class="btn btn-warning btn-sm">Edit</a>
-                                <a href="<?= $this->url->get('alatberat/hapus/' . $a->id_alatBerat) ?>" class="btn btn-danger btn-sm">Hapus</a>
-                            </td>
-                        </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</body>
-
+            
         </div>
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->

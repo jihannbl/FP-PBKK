@@ -39,7 +39,9 @@
                         aria-expanded="false" href="#">
                         <i class="fas fa-user"></i>&nbsp;&nbsp;<?= $this->session->get('auth')['username'] ?>&nbsp;</a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+                        <?php if ($this->session->get('auth')['tipe'] === 'master') { ?>
                         <a class="dropdown-item" href="<?= $this->url->get('user') ?>">List User</a>
+                        <?php } ?>
                         <a class="dropdown-item" href="<?= $this->url->get('session/logout') ?>">Log out</a>
                     </div>
                 </li>
@@ -56,10 +58,7 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
-                        <?php 
-                        if($this->session->get('auth')['tipe'] == 'master') 
-                        {
-                        ?>
+                        <?php if ($this->session->get('auth')['tipe'] == 'master') { ?>
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-clipboard"></i>
@@ -87,11 +86,8 @@
                                 </li>
                             </ul>
                         </li>
-                        <?php }
-                        else
-                        {
-                        }
-                        ?>
+                        <?php } else { ?>
+                        <?php } ?>
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-file-alt"></i>

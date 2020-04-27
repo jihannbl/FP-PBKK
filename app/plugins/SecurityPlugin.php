@@ -1,15 +1,6 @@
 <?php
 declare(strict_types=1);
 
-/**
- * This file is part of the Invo.
- *
- * (c) Phalcon Team <team@phalcon.io>
- *
- * For the full copyright and license information, please view
- * the LICENSE file that was distributed with this source code.
- */
-
 namespace App\Plugins;
 
 use Phalcon\Acl\Adapter\Memory as AclList;
@@ -34,8 +25,12 @@ class SecurityPlugin extends Injectable
         $auth = $this->session->get('auth')['tipe'];
         if ($auth == 'master') {
             $role = 'master';
-        } else {
+        } 
+        else if ($auth == 'admin'){
             $role = 'admin';
+        }
+        else{
+            $role = 'umum';
         }
 
         $controller = $dispatcher->getControllerName();
@@ -91,6 +86,10 @@ class SecurityPlugin extends Injectable
             'admin' => new Role(
                 'admin',
                 'Dapat mengakses Pemakaian Alat Berat'
+            ),
+            'umum' => new Role(
+                'umum',
+                'Tidak memiliki hak akses ke dalam sistem'
             )
         ];
 
@@ -98,22 +97,31 @@ class SecurityPlugin extends Injectable
             $acl->addRole($role);
         }
 
-        //Yang gak boleh diakses admin
-        $privateResources = [
-            'alatberat'    => ['index', 'tambah', 'proses', 'edit', 'update', 'hapus'],
-            'cucian'     => ['index', 'tambah', 'proses', 'edit', 'update', 'hapus'],
-            'user' => ['index', 'tambah', 'proses', 'hapus'],
+        // master
+        $masterprivateResources = [
+            'alatberat'     => ['index', 'tambah', 'proses', 'edit', 'update', 'hapus'],
+            'cucian'        => ['index', 'tambah', 'proses', 'edit', 'update', 'hapus'],
+            'user'          => ['index', 'tambah', 'proses', 'hapus', 'master'],
+            'pemakaianalatberat'    => ['index', 'tambah', 'proses', 'edit', 'update', 'hapus'],
         ];
-        foreach ($privateResources as $resource => $actions) {
+        foreach ($masterprivateResources as $resource => $actions) {
+            $acl->addComponent(new Component($resource), $actions);
+        }
+        
+        // admin
+        $adminprivateResources = [
+            'pemakaianalatberat'    => ['index', 'tambah', 'proses', 'edit', 'update', 'hapus'],
+            'user'                  => ['admin'],
+        ];
+        foreach ($adminprivateResources as $resource => $actions) {
             $acl->addComponent(new Component($resource), $actions);
         }
 
         //Public area resources
         $publicResources = [
-            'index'                 => ['index'],
-            'error'                 => ['notFound', 'serverError', 'unauthorized'],
-            'session'               => ['index', 'login', 'logout'],
-            'pemakaianalatberat'    => ['index', 'tambah', 'proses', 'edit', 'update', 'hapus'],
+            'index'     => ['index'],
+            'error'     => ['notFound', 'serverError', 'unauthorized'],
+            'session'   => ['index', 'login', 'logout'],
         ];
         foreach ($publicResources as $resource => $actions) {
             $acl->addComponent(new Component($resource), $actions);
@@ -128,10 +136,16 @@ class SecurityPlugin extends Injectable
             }
         }
 
-        //Grant access to private area to role master
-        foreach ($privateResources as $resource => $actions) {
+        // Grant access to private area to role master
+        foreach ($masterprivateResources as $resource => $actions) {
             foreach ($actions as $action) {
                 $acl->allow('master', $resource, $action);
+            }
+        }
+
+        foreach ($adminprivateResources as $resource => $actions) {
+            foreach ($actions as $action) {
+                $acl->allow('admin', $resource, $action);
             }
         }
 

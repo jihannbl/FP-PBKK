@@ -47,10 +47,10 @@ class SessionController extends ControllerBase
                 );
                 if($temp->tipe == 'master')
                 {
-                    $this->response->redirect('/cucian');
+                    $this->response->redirect('/user/master');
                 }
-                else {
-                    $this->response->redirect('/pemakaianalatberat');
+                else if($temp->tipe == 'admin'){
+                    $this->response->redirect('/user/admin');
                 }
                         
             }
