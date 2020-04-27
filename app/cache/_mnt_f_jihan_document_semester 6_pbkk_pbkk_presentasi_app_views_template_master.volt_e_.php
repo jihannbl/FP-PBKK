@@ -18,7 +18,7 @@ a:5:{i:0;s:516:"<!DOCTYPE html>
     </style>
 </head>
 ";s:5:"title";a:1:{i:0;a:4:{s:4:"type";i:357;s:5:"value";s:1:"
-";s:4:"file";s:84:"/mnt/f/Jihan/Document/Semester 6/PBKK/pbkk_presentasi/app/views/template/master.volt";s:4:"line";i:21;}}i:1;s:4729:"
+";s:4:"file";s:84:"/mnt/f/Jihan/Document/Semester 6/PBKK/pbkk_presentasi/app/views/template/master.volt";s:4:"line";i:21;}}i:1;s:5030:"
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed" style="font-size: 21px;">
     <!-- Site wrapper -->
@@ -55,6 +55,10 @@ a:5:{i:0;s:516:"<!DOCTYPE html>
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
+                        <?php 
+                        if($this->session->get('auth')['tipe'] == 'master') 
+                        {
+                        ?>
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-clipboard"></i>
@@ -82,6 +86,11 @@ a:5:{i:0;s:516:"<!DOCTYPE html>
                                 </li>
                             </ul>
                         </li>
+                        <?php }
+                        else
+                        {
+                        }
+                        ?>
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-file-alt"></i>
@@ -109,7 +118,7 @@ a:5:{i:0;s:516:"<!DOCTYPE html>
         </aside>
         <div class="content-wrapper">
             ";s:7:"content";a:1:{i:0;a:4:{s:4:"type";i:357;s:5:"value";s:13:"
-            ";s:4:"file";s:84:"/mnt/f/Jihan/Document/Semester 6/PBKK/pbkk_presentasi/app/views/template/master.volt";s:4:"line";i:112;}}i:2;s:241:"
+            ";s:4:"file";s:84:"/mnt/f/Jihan/Document/Semester 6/PBKK/pbkk_presentasi/app/views/template/master.volt";s:4:"line";i:121;}}i:2;s:241:"
         </div>
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
