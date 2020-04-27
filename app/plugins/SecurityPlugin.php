@@ -60,7 +60,7 @@ class SecurityPlugin extends Injectable
             ]);
             
 
-            $this->session->destroy();
+            // $this->session->destroy();
 
             return false;
         }
