@@ -10,12 +10,28 @@ class CucianController extends ControllerBase
     // passing view
     public function indexAction()
     {
-        $this->view->cucian = Cucian::find();
+        // $role = $this->session->get('auth')['tipe'];
+        // if($role == 'master')
+        // {
+            $this->view->cucian = Cucian::find();
+        // }
+        // else{
+        //     $this->flashSession->error('User tidak bisa mengakses halaman ini');
+        //     $this->response->redirect('/pemakaianalatberat');
+        // }
     }
     // passing view
     public function tambahAction()
     {
-
+        // $role = $this->session->get('auth')['tipe'];
+        // if($role == 'master')
+        // {
+        //     $this->view->cucian = Cucian::find();
+        // }
+        // else{
+        //     $this->flashSession->error('User tidak bisa mengakses halaman ini');
+        //     $this->response->redirect('/pemakaianalatberat');
+        // }
     }
 
     public function prosesAction()
@@ -32,6 +48,23 @@ class CucianController extends ControllerBase
         }
         else 
         {
+            // cek yg sudah ada
+            $nama = $this->request->getPost('nama_cucian');
+            $temp_nama = Cucian::findFirstByNama_cucian($nama);
+
+            $kode = $this->request->getPost('kode_cucian');
+            $temp_kode = Cucian::findFirstByKode_cucian($kode);
+
+            if($temp_nama)
+            {
+                $this->flashSession->error('Nama Cucian telah dipakai');
+                $this->response->redirect('/cucian/tambah');
+            }
+            elseif ($temp_kode) {
+                $this->flashSession->error('Kode Cucian telah dipakai');
+                $this->response->redirect('/cucian/tambah');
+            }
+            else{
             $cuci = new Cucian();
 
             $cuci->assign(
@@ -50,7 +83,8 @@ class CucianController extends ControllerBase
                 $this->flashSession->success('Data berhasil diinputkan');
             }
     
-            $this->response->redirect('/cucian');       
+            $this->response->redirect('/cucian'); 
+        }      
         } 
     }
     // passing view
@@ -74,6 +108,24 @@ class CucianController extends ControllerBase
         }
         else 
         {
+            // cek yg sudah ada
+            $nama = $this->request->getPost('nama_cucian');
+            $temp_nama = Cucian::findFirstByNama_cucian($nama);
+
+            $kode = $this->request->getPost('kode_cucian');
+            $temp_kode = Cucian::findFirstByKode_cucian($kode);
+
+            if($temp_nama)
+            {
+                $this->flashSession->error('Nama Cucian telah dipakai');
+                $this->response->redirect('/cucian/edit/'.$id);
+            }
+            elseif ($temp_kode) {
+                $this->flashSession->error('Kode Cucian telah dipakai');
+                $this->response->redirect('/cucian/edit/'.$id);
+            }
+            else {
+                
             $cuci = Cucian::findFirstById_cucian($id);
 
             $cuci->assign(
@@ -92,6 +144,7 @@ class CucianController extends ControllerBase
             }
 
             $this->response->redirect('/cucian');
+        }
         }
     }
 

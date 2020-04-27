@@ -45,8 +45,13 @@ class SessionController extends ControllerBase
                         'tipe' => $temp->tipe                            
                     ]
                 );
-                // coba dulu
-                $this->response->redirect('/cucian');
+                if($temp->tipe == 'master')
+                {
+                    $this->response->redirect('/cucian');
+                }
+                else {
+                    $this->response->redirect('/pemakaianalatberat');
+                }
                         
             }
             else {

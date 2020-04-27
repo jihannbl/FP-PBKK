@@ -8,7 +8,7 @@
     <link rel="icon" href="img/DCA.png" type="image/png">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    {{ assets.outputCss() }}
+    <?= $this->assets->outputCss() ?>
     <style>
         td,
         th {
@@ -17,8 +17,9 @@
         }
     </style>
 </head>
-{% block title %}
-{% endblock %}
+
+<title>User</title>
+
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed" style="font-size: 21px;">
     <!-- Site wrapper -->
@@ -36,10 +37,10 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false" href="#">
-                        <i class="fas fa-user"></i>&nbsp;&nbsp;{{ session.get('auth')['username'] }}&nbsp;</a>
+                        <i class="fas fa-user"></i>&nbsp;&nbsp;<?= $this->session->get('auth')['username'] ?>&nbsp;</a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
-                        <a class="dropdown-item" href="{{ url('user') }}">List User</a>
-                        <a class="dropdown-item" href="{{ url('session/logout') }}">Log out</a>
+                        <a class="dropdown-item" href="<?= $this->url->get('user') ?>">List User</a>
+                        <a class="dropdown-item" href="<?= $this->url->get('session/logout') ?>">Log out</a>
                     </div>
                 </li>
             </ul>
@@ -48,7 +49,7 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
                     <span class="font-weight-bold brand-link" style="color:#343A40; background:#7CB1A6; padding-left: 13px;">
-                        {{ image('img/DCA.png','class': 'brand-image img-circle elevation-3', 'style': 'opacity: .8') }}
+                        <?= $this->tag->image(['img/DCA.png', 'class' => 'brand-image img-circle elevation-3', 'style' => 'opacity: .8']) ?>
                         <span class="brand-text font-weight-bold" style="padding-left: 15%;">DCA</span>
                     </span>
             <div class="sidebar">
@@ -65,7 +66,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ url('cucian') }}" class="nav-link">
+                                    <a href="<?= $this->url->get('cucian') ?>" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>
                                             Cucian
@@ -73,7 +74,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ url('alatberat') }}" class="nav-link">
+                                    <a href="<?= $this->url->get('alatberat') ?>" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>
                                             Alat Berat
@@ -92,7 +93,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ url('pemakaianalatberat') }}" class="nav-link">
+                                    <a href="<?= $this->url->get('pemakaianalatberat') ?>" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>
                                             Pemakaian Alat
@@ -108,14 +109,46 @@
             </div>
         </aside>
         <div class="content-wrapper">
-            {% block content %}
-            {% endblock %}
+            
+<div class="container">
+    <div class="card mt-5">
+        <div class="card-header text-center" style="background-color:#343A40; color: #FFFFFF;">
+            <strong>EDIT DATA</strong>
+        </div>
+        <?= $this->flashSession->output() ?>
+        <div class="card-header">
+            <a href="<?= $this->url->get('/user') ?>" class="btn btn-secondary">Kembali</a>
+
+        </div>
+        <div class="card-body">
+            <form autocomplete="off" method="post" action="<?= $this->url->get('/user/update/' . $user->id_user) ?>">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" name="username" class="form-control" placeholder="Username"
+                    value="<?= $user->username ?>">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="pwd" class="form-control" placeholder="Password"
+                    value="">
+                </div>
+                
+                <div class="form-group">
+                    <input type="submit" class="btn btn-success" value="Simpan">
+                </div>
+                
+            </form>
+
+        </div>
+    </div>
+</div>
+
         </div>
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
         </aside>
         <!-- jQuery -->
-        {{ assets.outputJs() }}
+        <?= $this->assets->outputJs() ?>
     </div>
 </body>
 

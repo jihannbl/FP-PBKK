@@ -8,6 +8,7 @@
         <div class="card-header text-center" style="background-color:#343A40; color: #FFFFFF;">
             <strong>EDIT DATA</strong>
         </div>
+        {{ flashSession.output() }}
         <div class="card-header">
             <a href="{{url('/user')}}" class="btn btn-secondary">Kembali</a>
 
@@ -21,8 +22,8 @@
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="text" name="kode_cucian" class="form-control" placeholder="Kode Cucian"
-                    value="{{cucian.kode_cucian}}">
+                    <input type="password" name="pwd" class="form-control" placeholder="Password"
+                    value="">
                 </div>
                 
                 <div class="form-group">
@@ -30,7 +31,6 @@
                 </div>
                 
             </form>
-            {{ flashSession.output() }}
 
         </div>
     </div>

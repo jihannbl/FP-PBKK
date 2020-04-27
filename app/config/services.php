@@ -12,6 +12,9 @@ use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Session\Adapter\Stream as SessionAdapter;
 use Phalcon\Session\Manager as SessionManager;
 use Phalcon\Url as UrlResolver;
+use Phalcon\Flash\Session as FlashSession;
+use App\Plugins\SecurityPlugin;
+use Phalcon\Session\Bag;
 
 /**
  * Shared configuration service
@@ -105,19 +108,32 @@ $di->setShared('modelsMetadata', function () {
 /**
  * Register the session flash service with the Twitter Bootstrap classes
  */
-$di->set('flash', function () {
-    $escaper = new Escaper();
-    $flash = new Flash($escaper);
-    $flash->setImplicitFlush(false);
-    $flash->setCssClasses([
+$di->set('flashSession', function () {
+    // $escaper = new Escaper();
+    $flashSession = new FlashSession();
+    // $flashSession->setImplicitFlush(false);
+    $flashSession->setCssClasses([
         'error'   => 'alert alert-danger',
         'success' => 'alert alert-success',
         'notice'  => 'alert alert-info',
         'warning' => 'alert alert-warning'
     ]);
-
-    return $flash;
+    // $flashSession->setAutoescape(false);
+    return $flashSession;
 });
+// $di->set('flash', function () {
+//     $escaper = new Escaper();
+//     $flash = new Flash($escaper);
+//     $flash->setImplicitFlush(false);
+//     $flash->setCssClasses([
+//         'error'   => 'alert alert-danger',
+//         'success' => 'alert alert-success',
+//         'notice'  => 'alert alert-info',
+//         'warning' => 'alert alert-warning'
+//     ]);
+
+//     return $flash;
+// });
 
 /**
  * Start the session the first time some component request the session service
@@ -131,6 +147,10 @@ $di->setShared('session', function () {
     $session->start();
 
     return $session;
+});
+
+$di->setShared('sessionBag', function () {
+            return new Bag('bag');
 });
 
 $di->setShared('dispatcher', function() {
@@ -152,6 +172,10 @@ $di->setShared('dispatcher', function() {
                 return false;
             }
         }
+    );
+    $eventsManager->attach(
+            'dispatch:beforeExecuteRoute',
+            new SecurityPlugin()
     );
 
     $dispatcher = new Dispatcher();

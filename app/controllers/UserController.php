@@ -67,7 +67,7 @@ class UserController extends ControllerBase
         }
     }
     
-    // // passing view
+    // passing view
     // public function editAction($id)
     // {
     //     $user = Users::findFirstById_user($id);
@@ -84,7 +84,7 @@ class UserController extends ControllerBase
     //         {
     //             $this->flashSession->error($message->getMessage());
     //         }
-    //         $this->response->redirect('/user/edit/'.join('/',[$id]));
+    //         $this->response->redirect('/user/edit/'.$id);
     //     }
     //     else 
     //     {
@@ -95,7 +95,7 @@ class UserController extends ControllerBase
     //         if($temp)
     //         {
     //             $this->flashSession->error('Username telah dipakai');
-    //             $this->response->redirect('/user/edit/'.join('/',[$id]));
+    //             $this->response->redirect('/user/edit/'.$id);
     //         }
     //         else 
     //         {

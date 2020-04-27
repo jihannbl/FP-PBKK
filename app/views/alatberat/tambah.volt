@@ -8,6 +8,7 @@
         <div class="card-header text-center" style="background-color:#343A40; color: #FFFFFF;">
             <strong>TAMBAH DATA</strong>
         </div>
+        {{ flashSession.output() }}
         <div class="card-header">
             <a href="{{url('/alatberat')}}" class="btn btn-secondary">Kembali</a>
 
@@ -27,7 +28,7 @@
                 </div>
 
             </form>
-            {{ flashSession.output() }}
+            
 
         </div>
     </div>

@@ -6,13 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>DCA | Dwi Citra Anugerah</title>
-    <!-- <?= $this->assets->outputCss() ?> -->
-    <!-- <?= $this->assets->outputCss('login') ?> -->
+    <link rel="icon" href="img/DCA.png" type="image/png">
     <link rel='stylesheet' href='<?= $this->url->getStatic('css/login.css') ?>' type='text/css'>
-
 </head>
 
-<!-- <body>
+<body>
+    <div class="text-danger"><?= $this->flashSession->output() ?> </div>
     <div class="form-structor">
         <form method="POST" autocomplete="off" action="<?= $this->url->get('session/login') ?>">
             <div class="signup">
@@ -27,4 +26,4 @@
             </div>
         </form>
     </div>
-</body> -->
+</body>

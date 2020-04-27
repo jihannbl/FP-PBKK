@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 use App\Models\AlatBerat;
+use App\Models\PemakaianAlatBerat;
 use App\Validation\AlatBeratValidation;
 date_default_timezone_set("Asia/Bangkok");
 class AlatBeratController extends ControllerBase
@@ -32,25 +33,38 @@ class AlatBeratController extends ControllerBase
         }
         else 
         {
-            $alat = new AlatBerat();
+            // cek yg sudah ada
+            $nama = $this->request->getPost('nama_alatBerat');
+            $temp = AlatBerat::findFirstByNama_alatBerat($nama);
 
-            $alat->assign(
-                $this->request->getPost(),
-                [
-                    'nama_alatBerat',
-                    'harga_alatBerat'
-                ]
-            );
-            $alat->updated_at = date('Y-m-d h:i:sa');
-            $alat->created_at = date('Y-m-d h:i:sa');
-            
-            $success = $alat->save();
-            if($success)
+            if($temp)
             {
-                $this->flashSession->success('Data berhasil diinputkan');
+                $this->flashSession->error('Nama Alat Berat telah dipakai');
+                $this->response->redirect('/alatberat/tambah');
             }
-            
-            $this->response->redirect('/alatberat');        
+            else 
+            {
+                
+                $alat = new AlatBerat();
+                
+                $alat->assign(
+                    $this->request->getPost(),
+                    [
+                        'nama_alatBerat',
+                        'harga_alatBerat'
+                        ]
+                    );
+                    $alat->updated_at = date('Y-m-d h:i:sa');
+                    $alat->created_at = date('Y-m-d h:i:sa');
+                    
+                    $success = $alat->save();
+                    if($success)
+                    {
+                        $this->flashSession->success('Data berhasil diinputkan');
+                    }
+                    
+                    $this->response->redirect('/alatberat');        
+            }
         }
     }
     // passing view
@@ -74,6 +88,16 @@ class AlatBeratController extends ControllerBase
         }
         else 
         {
+            $nama = $this->request->getPost('nama_alatBerat');
+            $temp = AlatBerat::findFirstByNama_alatBerat($nama);
+
+            if($temp)
+            {
+                $this->flashSession->error('Nama Alat Berat telah dipakai');
+                $this->response->redirect('/alatberat/edit/'.$id);
+            }
+            else {
+             
             $alat = AlatBerat::findFirstById_alatBerat($id);
             
             $alat->assign(
@@ -93,18 +117,28 @@ class AlatBeratController extends ControllerBase
             
             $this->response->redirect('/alatberat');
         }
+        }
     }
 
     public function hapusAction($id)
     {
+
         $alat = AlatBerat::findFirstById_alatBerat($id);
+        $cek = PemakaianAlatBerat::findFirstById_alatBerat($id);
 
-        $success = $alat->delete();
-        if($success)
+        if($cek)
         {
-            $this->flashSession->success('Data berhasil dihapus');
+            $this->flashSession->error('Data tidak dapat dihapus');
         }
-
+        else {
+            
+            $success = $alat->delete();
+            if($success)
+            {
+                $this->flashSession->success('Data berhasil dihapus');
+            }
+            
+        }
         $this->response->redirect('/alatberat');
     }
 
