@@ -138,7 +138,7 @@ class CucianController extends ControllerBase
                 }
             }
             // cek yg sudah ada
-            if($f_nama && $f_kode){
+            if($cuci->kode_cucian == $kode || $cuci->nama_cucian == $nama ||($f_nama && $f_kode)){
                 
             // $cuci = Cucian::findFirstById_cucian($id);
 
