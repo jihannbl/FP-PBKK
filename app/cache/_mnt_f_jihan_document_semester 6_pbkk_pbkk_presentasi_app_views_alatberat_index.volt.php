@@ -17,7 +17,7 @@
     </style>
 </head>
 
-<title>Cucian</title>
+<title>Alat Berat</title>
 
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed" style="font-size: 21px;">
@@ -117,33 +117,30 @@
     <div class="container">
         <div class="card">
             <div class="card-header text-center" style="background-color:#343A40; color: #FFFFFF;">
-                <strong>CUCIAN</strong>
+                <strong>ALAT BERAT</strong>
             </div>
-                <?= $this->flashSession->output() ?>
-                
-            <!-- This is an alert box. -->
+            <?= $this->flashSession->output() ?>
             <div class="card-header">
-                <a href="<?= $this->url->get('cucian/tambah') ?>" class="btn btn-primary btn-sm float-left"><span class="fas fa-plus"
+                <a href="<?= $this->url->get('alatberat/tambah') ?>" class="btn btn-primary btn-sm float-left"><span class="fas fa-plus"
                         style="padding-right: 7px;"></span>Input</a>
-               
             </div>
             <div class="card-body table-responsive p-0" style="height: 500px;">
                 <table class="table table-bordered table-hover table-striped table-head-fixed">
                     <thead>
                         <tr>
-                            <th>Nama Cucian</th>
-                            <th>Kode Cucian</th>
+                            <th>Nama Alat Berat</th>
+                            <th>Harga Alat Berat per Jam</th>
                             <th>OPSI</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($cucian as $c) { ?>
+                        <?php foreach ($alat as $a) { ?>
                         <tr>
-                            <td><?= $c->nama_cucian ?></td>
-                            <td><?= $c->kode_cucian ?></td>
+                            <td><?= $a->nama_alatBerat ?></td>
+                            <td><?= $a->harga_alatBerat ?></td>
                             <td>
-                                <a href="<?= $this->url->get('cucian/edit/' . $c->id_cucian) ?>" class="btn btn-warning btn-sm">Edit</a>
-                                <a href="<?= $this->url->get('cucian/hapus/' . $c->id_cucian) ?>" class="btn btn-danger btn-sm">Hapus</a>
+                                <a href="<?= $this->url->get('alatberat/edit/' . $a->id_alatBerat) ?>" class="btn btn-warning btn-sm">Edit</a>
+                                <a href="<?= $this->url->get('alatberat/hapus/' . $a->id_alatBerat) ?>" class="btn btn-danger btn-sm">Hapus</a>
                             </td>
                         </tr>
                         <?php } ?>
@@ -152,6 +149,7 @@
             </div>
         </div>
     </div>
+</body>
 
         </div>
         <aside class="control-sidebar control-sidebar-dark">

@@ -28,7 +28,7 @@
                         <td>{{ u.username }}</td>
                         <td>{{ u.tipe }}</td>
                         <td>
-                            <a href="{{url('user/edit/'~u.id_user) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <!-- <a href="{{url('user/edit/'~u.id_user) }}" class="btn btn-warning btn-sm">Edit</a> -->
                             <a href="{{url('user/hapus/'~u.id_user) }}" class="btn btn-danger btn-sm">Hapus</a>
                         </td>
                     </tr>
