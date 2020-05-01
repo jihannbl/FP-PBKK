@@ -17,7 +17,7 @@
     </style>
 </head>
 
-<title>Pemakaian Alat Berat</title>
+<title>Cucian</title>
 
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed" style="font-size: 21px;">
@@ -117,44 +117,30 @@
 <div class="container">
     <div class="card mt-5">
         <div class="card-header text-center" style="background-color:#343A40; color: #FFFFFF;">
-            <strong>EDIT DATA</strong>
+            <strong>TAMBAH DATA</strong>
         </div>
         <?= $this->flashSession->output() ?>
         <div class="card-header">
-            <a href="<?= $this->url->get('/pemakaianalatberat') ?>" class="btn btn-secondary">Kembali</a>
+            <a href="<?= $this->url->get('/cucian') ?>" class="btn btn-secondary">Kembali</a>
 
         </div>
         <div class="card-body">
-            <form autocomplete="off" method="post" action="<?= $this->url->get('/pemakaianalatberat/update/' . $pemakaian->id_pemakaian) ?>">
+            <form autocomplete="off" method="post" action="<?= $this->url->get('/cucian/proses') ?>">
                 <div class="form-group">
-                    <label>Nama Alat Berat</label>
-                    <input list="kodes" name="nama_alatBerat" class="form-control " placeholder="Nama Alat Berat"
-                        value="<?= $pemakaian->alat->nama_alatBerat ?>">
-                    <datalist id="kodes">
-                        <?php foreach ($alat as $a) { ?>
-                        <option value="<?= $a->nama_alatBerat ?>">
-                        <?php } ?>
-                    </datalist>
+                    <label>Nama Cucian</label>
+                    <input type="text" name="nama_cucian" class="form-control"
+                    placeholder="Nama cucian">
+                    
                 </div>
                 <div class="form-group">
-                    <label>Tanggal Mulai</label>
-                    <input type="date" name="tanggal_mulai" class="form-control" placeholder="Tanggal Mulai"
-                        value="<?= $pemakaian->tanggal_mulai ?>">
+                    <label>Kode Cucian</label>
+                    <input type="text" name="kode_cucian" class="form-control"
+                    placeholder="Kode Cucian">
                 </div>
-                <div class="form-group">
-                    <label>Tanggal Selesai</label>
-                    <input type="date" name="tanggal_selesai" class="form-control" placeholder="Tanggal Selesai"
-                        value="<?= $pemakaian->tanggal_selesai ?>">
-                </div>
-                <div class="form-group">
-                    <label>Jam Pakai</label>
-                    <input type="text" name="jam_pakai" class="form-control" placeholder="Jam Pakai" value="<?= $pemakaian->jam_pakai ?>">
-                </div>
-                
                 <div class="form-group">
                     <input type="submit" class="btn btn-success" value="Simpan">
                 </div>
-
+                
             </form>
             
 

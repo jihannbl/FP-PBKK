@@ -88,17 +88,23 @@ class AlatBeratController extends ControllerBase
         }
         else 
         {
-            $nama = $this->request->getPost('nama_alatBerat');
-            $temp = AlatBerat::findFirstByNama_alatBerat($nama);
-
-            if($temp)
-            {
-                $this->flashSession->error('Nama Alat Berat telah dipakai');
-                $this->response->redirect('/alatberat/edit/'.$id);
-            }
-            else {
-             
             $alat = AlatBerat::findFirstById_alatBerat($id);
+            $nama = $this->request->getPost('nama_alatBerat');
+            $f_nama = 0;
+            if($alat->nama_alatBerat != $nama)
+            {
+                $temp = AlatBerat::findFirstByNama_alatBerat($nama);
+                if($temp)
+                {
+                    $this->flashSession->error('Nama Alat Berat telah dipakai');
+                    $this->response->redirect('/alatberat/edit/'.$id);
+                }
+                else {
+                    $f_nama=1;
+                }
+            }
+            if($f_nama==1) {
+             
             
             $alat->assign(
                 $this->request->getPost(),

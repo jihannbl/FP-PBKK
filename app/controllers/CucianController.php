@@ -108,25 +108,39 @@ class CucianController extends ControllerBase
         }
         else 
         {
-            // cek yg sudah ada
-            $nama = $this->request->getPost('nama_cucian');
-            $temp_nama = Cucian::findFirstByNama_cucian($nama);
-
-            $kode = $this->request->getPost('kode_cucian');
-            $temp_kode = Cucian::findFirstByKode_cucian($kode);
-
-            if($temp_nama)
-            {
-                $this->flashSession->error('Nama Cucian telah dipakai');
-                $this->response->redirect('/cucian/edit/'.$id);
-            }
-            elseif ($temp_kode) {
-                $this->flashSession->error('Kode Cucian telah dipakai');
-                $this->response->redirect('/cucian/edit/'.$id);
-            }
-            else {
-                
             $cuci = Cucian::findFirstById_cucian($id);
+            $nama = $this->request->getPost('nama_cucian');
+            $kode = $this->request->getPost('kode_cucian');
+            $f_nama=0;
+            $f_kode=0;
+            if($cuci->nama_cucian != $nama)
+            {
+                $temp_nama = Cucian::findFirstByNama_cucian($nama);
+                if($temp_nama){
+                    $this->flashSession->error('Nama Cucian sudah dipakai');
+                    $this->response->redirect('/cucian/edit/'.$id);
+                }
+                else
+                {
+                    $f_nama=1;
+                }
+            }
+            if($cuci->kode_cucian != $kode)
+            {
+                $temp_kode = Cucian::findFirstByKode_cucian($kode);
+                if($temp_kode){
+                    $this->flashSession->error('Kode Cucian sudah dipakai');
+                    $this->response->redirect('/cucian/edit/'.$id);
+                }
+                else
+                {
+                    $f_kode=1;
+                }
+            }
+            // cek yg sudah ada
+            if($f_nama && $f_kode){
+                
+            // $cuci = Cucian::findFirstById_cucian($id);
 
             $cuci->assign(
                 $this->request->getPost(),
@@ -144,7 +158,7 @@ class CucianController extends ControllerBase
             }
 
             $this->response->redirect('/cucian');
-        }
+            }
         }
     }
 
